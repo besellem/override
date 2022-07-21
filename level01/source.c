@@ -7,7 +7,8 @@ int		verify_user_name(void)
 {
 	const char	username[] = "dat_wil";
 
-	for (int i = 5; i > 0; --i)
+	puts("verifying username....\n");
+	for (int i = 7; i > 0; --i)
 	{
 		if (username[i] != a_user_name[i])
 			return 1;
