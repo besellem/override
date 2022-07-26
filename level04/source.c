@@ -18,7 +18,7 @@ int		main(void)
 	pid = fork();
 	if (pid == 0)
 	{
-		prctl(1, 1);
+		prctl(PR_SET_PDEATHSIG, 1);
 		ptrace(PTRACE_TRACEME, 0, 0, 0);
 		puts("Give me some shellcode, k");
 		gets(buffer);
@@ -33,7 +33,7 @@ int		main(void)
 				puts("child is exiting...");
 				return 0;
 			}
-			ret = ptrace(PTRACE_PEEKUSER, pid, 44, 0);
+			ret = ptrace(PT_READ_U, pid, 44, 0);
 		} while (ret != 0xb);
 
 		puts("no exec() for you");
