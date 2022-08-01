@@ -2,11 +2,11 @@
 #include <string.h>
 #include <stdlib.h>
 
-int		store_number(char *buffer)
+int		store_number(unsigned int *buffer)
 {
 	unsigned int	number;
 	unsigned int	index;
-	
+
 	printf(" Number: ");
 	scanf("%u", &number);
 
@@ -27,7 +27,7 @@ int		store_number(char *buffer)
 	}
 }
 
-int		read_number(char *buffer)
+int		read_number(unsigned int *buffer)
 {
 	int	num;
 
@@ -40,9 +40,9 @@ int		read_number(char *buffer)
 
 int		main(int argc, char **argv, char **envp)
 {
-	char	buffer[100] = {0};
-	char	command[20] = {0};
-	int		ret;
+	unsigned int	buffer[100] = {0};
+	char			command[20] = {0};
+	int				ret;
 
 	for (char **tmp = argv; *tmp != NULL; ++tmp)
 		memset(*tmp, 0, strlen(*tmp));
@@ -74,8 +74,6 @@ int		main(int argc, char **argv, char **envp)
 			ret = read_number(buffer);
 		else if (strncmp(command, "quit", 4) == 0)
 			return 0;
-
-		printf("@@ [%d]\n", ret);
 
 		if (ret == 0)
 			printf(" Completed %s command successfully\n", command);
