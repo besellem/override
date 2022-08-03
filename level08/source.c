@@ -1,8 +1,10 @@
-#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 void	log_wrapper(FILE *stream, char *msg, char *fmt)
 {
@@ -16,7 +18,7 @@ void	log_wrapper(FILE *stream, char *msg, char *fmt)
 
 int		main(int argc, char **argv)
 {
-	char	*backup_path = "./backups/";
+	char	backup_path[100] = "./backups/";
 	FILE	*log_file;
 	FILE	*input_file;
 	int		fd;
@@ -46,7 +48,7 @@ int		main(int argc, char **argv)
 	
 	strncat(backup_path, argv[1], 99 - strlen(backup_path));
 
-	fd = open(backup_path, 0xc1, 0x1b0);
+	fd = open(backup_path, O_WRONLY | O_CREAT | O_EXCL, 0660);
 	if (fd < 0)
 	{
 		printf("ERROR: Failed to open %s%s\n", "./backups/", argv[1]);
